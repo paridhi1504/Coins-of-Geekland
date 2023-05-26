@@ -1,0 +1,27 @@
+class Solution
+{
+    public int Maximum_Sum(int mat[][],int n,int k){
+        // Your code goes here
+        int p[][] = new int [n+1][n+1];
+        
+        for(int i= 0; i<n; i++){
+            p[0][i] = 0;
+            p[i][0] = 0;
+        }
+        
+        int max = Integer.MIN_VALUE;
+        for(int i=1; i<=n; i++){
+            for(int j =1; j<=n; j++){
+                int x = i-1;
+                int y = j-1;
+                
+                p[i][j] = mat[x][y] + p[x][j]+p[i][y] -p[x][y];
+                
+                if(i>=k && j>=k ){
+                    max = Math.max(max, p[i][j] - p[i][j-k]-p[i-k][j] + p[i-k][j-k]);
+                }
+            }
+        }
+        return max;
+    }
+}
